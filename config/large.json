@@ -1,0 +1,67 @@
+{
+  "dataset_reader": {
+    "type": "simple",
+    "token_indexers": {
+      "tokens": {
+        "type": "single_id",
+        "lowercase_tokens": true
+      },
+      "token_characters": {
+        "type": "characters",
+        "min_padding_length": 3
+      }
+    }
+  },
+  "train_data_path": "data/Bengali_Dataset.txt",
+  "validation_data_path": "data/Bengali_Dataset.txt",
+  "test_data_path": "data/Bengali_Dataset.txt",
+  "evaluate_on_test": true,
+  "model": {
+    "type": "lemma_tagger",
+    "text_field_embedder": {
+      "token_embedders": {
+        "tokens": {
+            "type": "embedding",
+            "embedding_dim": 128
+        },
+        "token_characters": {
+          "type": "character_encoding",
+          "embedding": {
+            "embedding_dim": 64
+          },
+          "encoder": {
+            "type": "lstm",
+            "input_size": 64,
+            "hidden_size": 128,
+            "num_layers": 1
+          },
+          "dropout": 0.2
+        }
+      }
+    },
+    "encoder": {
+      "type": "lstm",
+      "input_size": 256,
+      "hidden_size": 256,
+      "num_layers": 2,
+      "dropout": 0.5,
+      "bidirectional": true
+    }
+  },
+  "iterator": {
+    "type": "bucket",
+    "batch_size": 32,
+    "sorting_keys": [["tokens", "num_tokens"]]
+  },
+  "trainer": {
+    "optimizer": {
+        "type": "adam",
+        "lr": 0.001
+    },
+    "num_epochs": 60,
+    "patience": 10,
+    "num_serialized_models_to_keep": 3,
+    "grad_norm": 5.0,
+    "cuda_device": -1
+  }
+}
