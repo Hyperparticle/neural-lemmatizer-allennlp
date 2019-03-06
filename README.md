@@ -19,7 +19,7 @@ allennlp train config/small.json \
 All logs will be put in the `logs/main` directory. If you would like to train again, delete `logs/main`, otherwise
 there will be an error.
 
-To predict after training, run `predict.sh` or
+To predict a trained model, run `predict.sh` or
 
 ```bash
 allennlp predict logs/main/model.tar.gz data/Bengali_Dataset.txt \
@@ -27,6 +27,13 @@ allennlp predict logs/main/model.tar.gz data/Bengali_Dataset.txt \
     --predictor simple \
     --include-package library \
     --use-dataset-reader
+```
+
+To evaluate a trained model, run `evaluate.sh` or
+
+```bash
+allennlp evaluate logs/main/model.tar.gz data/Bengali_Dataset.txt \
+    --include-package library
 ```
 
 This will output predictions to `data/predict.txt`.
