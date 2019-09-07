@@ -8,7 +8,7 @@ Install AllenNLP with the command
 pip install allennlp
 ```
 
-To train, run `bash.sh`, or
+To train, run `train.sh`, or
 
 ```bash
 allennlp train config/small.json \
